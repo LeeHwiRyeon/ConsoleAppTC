@@ -48,6 +48,11 @@ namespace MiniGameTC {
             var msg = $"테스트 완료: 성공({successCount}) 실패({failureCount})";
             SlackNotifier.SendMessage(msg);
             Console.WriteLine(msg);
+
+            var currentTime = DateTime.Now.ToString("yyyyMMdd_HHmm");
+            var commitMessage = $"{currentTime}_테스트 시나리오 결과:성공({successCount}), 실패({failureCount})";
+            var git = new GitCommand();
+            git.CommitAndPush(reporter.GenerateReport(), commitMessage);
         }
 
         private TestScenarioReport RunTestCase(ITestScenario tc)
