@@ -1,5 +1,5 @@
-﻿using ConsoleApp.Game;
-using System;
+﻿using System;
+using MiniGames;
 
 namespace ConsoleApp {
     internal class Program {
@@ -8,19 +8,23 @@ namespace ConsoleApp {
             bool isRunning = true;
             while (isRunning) {
                 Console.WriteLine("어떤 게임을 하시겠습니까?");
-                Console.WriteLine("1: 가위바위보");
-                Console.WriteLine("2: 숫자 추측 게임");
+                Console.WriteLine("1: TC 시작");
+                Console.WriteLine("2: 가위바위보");
+                Console.WriteLine("3: 숫자 추측 게임");
                 Console.WriteLine("0: 종료");
                 Console.WriteLine("");
 
                 switch (Console.ReadLine()) {
                     case "1":
-                        IGame rpsGame = new RockPaperScissors();
-                        rpsGame.Play();
                         break;
 
                     case "2":
-                        IGame numberGame = new NumberGuessingGame();
+                        var rpsGame = new RockPaperScissors();
+                        rpsGame.Play();
+                        break;
+
+                    case "3":
+                        var numberGame = new NumberGuessingGame();
                         numberGame.Play();
                         break;
 
