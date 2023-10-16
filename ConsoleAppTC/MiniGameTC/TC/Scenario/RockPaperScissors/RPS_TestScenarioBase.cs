@@ -1,4 +1,5 @@
 ﻿using MiniGames;
+using System.Reflection;
 
 namespace MiniGameTC {
     [IgnoreScenario]
@@ -10,7 +11,7 @@ namespace MiniGameTC {
 
         public virtual void OnInitialize()
         {
-            Report = new TestScenarioReport();
+            Report = new TestScenarioReport(GetType().Name);
             m_miniGame = new RockPaperScissors();
             m_inputProvider = new MockInputProvider();
             m_outputProvider = new MockOutputProvider();

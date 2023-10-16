@@ -6,9 +6,9 @@ namespace MiniGameTC {
         public override TestScenarioReport ExecuteScenario()
         {
             try {
-                m_game.Init(new MockInputProvider(), new MockOutputProvider());
-                m_game.SetSecretNumber(50); // 예를 들면, 우리가 원하는 승리 숫자를 설정합니다.
-                
+                m_game.SetSecretNumber(50);
+                m_inputProvider.SetInputs("50");
+
                 var result = m_game.Play();
                 if (result == GameResult.Win) {
                     Report.Status = "Success";

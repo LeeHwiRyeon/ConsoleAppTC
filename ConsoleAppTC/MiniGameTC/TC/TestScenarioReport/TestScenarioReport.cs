@@ -1,8 +1,15 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 
 namespace MiniGameTC {
     public class TestScenarioReport {
+        public TestScenarioReport(string name)
+        {
+            Name = name;
+        }
+
         private StringBuilder m_history = new StringBuilder();
+        public string Name { get; private set; }
         public string Status { get; set; }
         public string ErrorMessage { get; set; }
 

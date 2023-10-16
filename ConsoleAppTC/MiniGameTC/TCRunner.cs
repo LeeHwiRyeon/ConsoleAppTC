@@ -30,7 +30,7 @@ namespace MiniGameTC {
                 Console.WriteLine("No test cases found!");
                 return;
             }
-
+            var reporter = new Reporter();
             int successCount = 0;
             int failureCount = 0;
             foreach (var tc in m_testCases) {
@@ -40,14 +40,16 @@ namespace MiniGameTC {
                 } else {
                     failureCount++;
                 }
+                reporter.AddReport(result);
             }
+            reporter.PrintAllReports();
 
             var msg = $"테스트 완료: 성공({successCount}) 실패({failureCount})";
             SlackNotifier.SendMessage(msg);
             Console.WriteLine(msg);
         }
 
-        private TCResult RunTestCase(ITestScenario tc)
+        private TestScenarioReport RunTestCase(ITestScenario tc)
         {
             tc.OnInitialize();
             var result = tc.ExecuteScenario();

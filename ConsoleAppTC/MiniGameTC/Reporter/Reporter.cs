@@ -13,7 +13,7 @@ namespace MiniGameTC {
         public void PrintAllReports()
         {
             foreach (var report in reports) {
-                Console.WriteLine("=== Test Scenario Report ===");
+                Console.WriteLine($"=== {report.Name} Report ===");
                 Console.WriteLine($"Status: {report.Status}");
                 Console.WriteLine($"Error Message: {report.ErrorMessage}");
                 Console.WriteLine("Details:");
