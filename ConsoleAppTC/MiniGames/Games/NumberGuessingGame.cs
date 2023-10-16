@@ -1,8 +1,15 @@
 ﻿using System;
+using MiniGames;
 
 namespace MiniGames {
     public class NumberGuessingGame : IGame {
         Random m_random = new Random();
+        IInputProvider m_inputProvider;
+        public void Init(IInputProvider inputProvider)
+        {
+            m_inputProvider = inputProvider;
+        }
+
         public void Play()
         {
             Console.WriteLine("숫자 추측 게임에 오신 것을 환영합니다!");
@@ -14,7 +21,7 @@ namespace MiniGames {
 
             do {
                 Console.Write("당신의 추측을 입력하세요: ");
-                var input = Console.ReadLine();
+                var input = m_inputProvider.GetInput();
                 if (input?.ToLower() == "종료") {
                     Console.WriteLine("숫자 추측 게임을 종료합니다.");
                     return;

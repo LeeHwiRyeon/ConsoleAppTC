@@ -20,11 +20,13 @@ namespace ConsoleApp {
 
                     case "2":
                         var rpsGame = new RockPaperScissors();
+                        rpsGame.Init(new ConsoleInputProvider());
                         rpsGame.Play();
                         break;
 
                     case "3":
                         var numberGame = new NumberGuessingGame();
+                        numberGame.Init(new ConsoleInputProvider());
                         numberGame.Play();
                         break;
 

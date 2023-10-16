@@ -1,8 +1,14 @@
 ﻿using System;
+using MiniGames;
 
 namespace MiniGames {
     public class RockPaperScissors : IGame {
         Random m_random = new Random();
+        IInputProvider m_inputProvider;
+        public void Init(IInputProvider inputProvider)
+        {
+            m_inputProvider = inputProvider;
+        }
 
         public void Play()
         {
@@ -11,7 +17,7 @@ namespace MiniGames {
             while (true) {
                 Console.WriteLine("\n가위, 바위, 보 중 하나를 선택하세요. (종료하려면 '종료'를 입력하세요)");
 
-                string userChoice = Console.ReadLine()?.Trim();
+                string userChoice = m_inputProvider.GetInput()?.Trim();
                 if (userChoice != null && userChoice.ToLower() == "종료") {
                     Console.WriteLine("가위바위보 게임을 종료합니다.");
                     return;
@@ -31,18 +37,13 @@ namespace MiniGames {
                 if (userChoice == computerChoice) {
                     Console.WriteLine("비겼습니다!");
                 } else if (userChoice == "가위" && computerChoice == "보" ||
-                             userChoice == "바위" && computerChoice == "가위" ||
-                             userChoice == "보" && computerChoice == "바위") {
+                               userChoice == "바위" && computerChoice == "가위" ||
+                               userChoice == "보" && computerChoice == "바위") {
                     Console.WriteLine("당신이 이겼습니다!");
                 } else {
                     Console.WriteLine("컴퓨터가 이겼습니다!");
                 }
             }
-        }
-
-        public void Dispose()
-        {
-
         }
     }
 }
