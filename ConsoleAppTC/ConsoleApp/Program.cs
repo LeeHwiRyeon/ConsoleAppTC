@@ -1,5 +1,6 @@
 ﻿using System;
 using MiniGames;
+using MiniGameTC;
 
 namespace ConsoleApp {
     internal class Program {
@@ -16,6 +17,9 @@ namespace ConsoleApp {
 
                 switch (Console.ReadLine()) {
                     case "1":
+                        var tcRunner = new TCRunner();
+                        tcRunner.Init();
+                        tcRunner.RunAllTests();
                         break;
 
                     case "2":

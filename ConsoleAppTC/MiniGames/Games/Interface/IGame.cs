@@ -1,6 +1,12 @@
 ﻿namespace MiniGames {
     public interface IGame {
         void Init(IInputProvider inputProvider);
-        void Play();
+        GameResult Play();
+    }
+
+    public enum GameResult {
+        Win,
+        Draw,
+        Lose
     }
 }
