@@ -6,32 +6,39 @@ namespace MiniGameTC {
         public void CommitAndPush(string filePath, string message)
         {
             try {
-                RunCommand($"git add {filePath}");
-                RunCommand($"git commit -m \"{message}\"");
-                RunCommand("git push");
+                RunCommand("git", $"add {filePath}");
+                RunCommand("git", $"commit -m \"{message}\"");
+                RunCommand("git", "push");
+                Console.WriteLine($"Successfully committed and pushed {filePath} with message: \"{message}\"");
             } catch (Exception ex) {
-                Console.WriteLine($"Error while executing Git command: {ex.Message}");
+                Console.WriteLine($"Error in CommitAndPush: {ex.Message}");
             }
         }
 
-        private void RunCommand(string command)
+        private void RunCommand(string command, string arguments)
         {
-            var processInfo = new ProcessStartInfo("cmd.exe", "/c " + command) {
+            var processStartInfo = new ProcessStartInfo {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
 
             var process = new Process {
-                StartInfo = processInfo
+                StartInfo = processStartInfo
             };
 
             process.Start();
-            string error = process.StandardError.ReadToEnd();
+            process.StandardInput.WriteLine($"{command} {arguments}");
+            process.StandardInput.WriteLine("exit");
+            string output = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
 
-            if (!string.IsNullOrEmpty(error)) {
-                throw new Exception($"Error while executing command '{command}': {error}");
+            if (process.ExitCode != 0) {
+                string error = process.StandardError.ReadToEnd();
+                throw new Exception($"Command failed with error: {error}");
             }
         }
     }
