@@ -1,6 +1,7 @@
 ﻿using MiniGames;
 
 namespace MiniGameTC {
+    [IgnoreTestCase]
     internal class RockPaperScissorsTestCaseBase : ITestCase {
         protected RockPaperScissors m_miniGame;
         protected TCInputProvider m_inputProvider;

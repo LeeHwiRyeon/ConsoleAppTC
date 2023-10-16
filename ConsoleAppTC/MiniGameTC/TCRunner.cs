@@ -11,8 +11,10 @@ namespace MiniGameTC {
         {
             var testCaseTypes = Assembly.GetExecutingAssembly()
                 .GetTypes()
-                .Where(type => type.GetInterfaces().Contains(typeof(ITestCase)))
+                .Where(type => type.GetInterfaces().Contains(typeof(ITestCase))
+                                && type.IsDefined(typeof(IgnoreTestCaseAttribute), inherit: false) == false)
                 .ToArray();
+
 
             m_testCases.Clear();
             foreach (var type in testCaseTypes) {
@@ -29,25 +31,28 @@ namespace MiniGameTC {
                 return;
             }
 
+            int successCount = 0;
+            int failureCount = 0;
             foreach (var tc in m_testCases) {
-                RunTestCase(tc);
+                var result = RunTestCase(tc);
+                if (result.Status == "Success") {
+                    successCount++;
+                } else {
+                    failureCount++;
+                }
             }
 
-            SlackNotifier.SendMessage($"테스트 완료: 성공({0}) 실패({0})");
+            var msg = $"테스트 완료: 성공({successCount}) 실패({failureCount})";
+            SlackNotifier.SendMessage(msg);
+            Console.WriteLine(msg);
         }
 
-        private void RunTestCase(ITestCase tc)
+        private TCResult RunTestCase(ITestCase tc)
         {
             tc.OnInitialize();
             var result = tc.OnUpdate();
-            //if (result == Formatting.Indented) { // 예시로 결과가 Formatting.Indented라면 성공으로 판단
-            //    Console.WriteLine("Test Case Passed!");
-            //} else {
-            //    Console.WriteLine("Test Case Failed!");
-            //}
             tc.OnClose();
+            return result;
         }
-
-
     }
 }
