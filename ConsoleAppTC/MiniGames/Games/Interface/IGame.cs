@@ -1,6 +1,8 @@
 ﻿namespace MiniGames {
     public interface IGame {
-        void Init(IInputProvider inputProvider);
+        IInputProvider InputProvider { get; }
+        IOutputProvider OutputProvider { get; }
+        void Init(IInputProvider inputProvider, IOutputProvider outputProvider);
         GameResult Play();
     }
 

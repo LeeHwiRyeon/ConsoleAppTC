@@ -5,20 +5,20 @@ using System.Reflection;
 
 namespace MiniGameTC {
     public class TCRunner {
-        private List<ITestCase> m_testCases = new List<ITestCase>();
+        private List<ITestScenario> m_testCases = new List<ITestScenario>();
 
         public void Init()
         {
             var testCaseTypes = Assembly.GetExecutingAssembly()
                 .GetTypes()
-                .Where(type => type.GetInterfaces().Contains(typeof(ITestCase))
-                                && type.IsDefined(typeof(IgnoreTestCaseAttribute), inherit: false) == false)
+                .Where(type => type.GetInterfaces().Contains(typeof(ITestScenario))
+                                && type.IsDefined(typeof(IgnoreScenarioAttribute), inherit: false) == false)
                 .ToArray();
 
 
             m_testCases.Clear();
             foreach (var type in testCaseTypes) {
-                if (Activator.CreateInstance(type) is ITestCase testCase) {
+                if (Activator.CreateInstance(type) is ITestScenario testCase) {
                     m_testCases.Add(testCase);
                 }
             }
@@ -47,11 +47,11 @@ namespace MiniGameTC {
             Console.WriteLine(msg);
         }
 
-        private TCResult RunTestCase(ITestCase tc)
+        private TCResult RunTestCase(ITestScenario tc)
         {
             tc.OnInitialize();
-            var result = tc.OnUpdate();
-            tc.OnClose();
+            var result = tc.ExecuteScenario();
+            tc.OnFinalize();
             return result;
         }
     }

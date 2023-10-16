@@ -1,5 +1,6 @@
 ﻿using System;
 using MiniGames;
+using MiniGames.Output;
 using MiniGameTC;
 
 namespace ConsoleApp {
@@ -24,13 +25,13 @@ namespace ConsoleApp {
 
                     case "2":
                         var rpsGame = new RockPaperScissors();
-                        rpsGame.Init(new ConsoleInputProvider());
+                        rpsGame.Init(new ConsoleInputProvider(), new ConsoleOutputProvider());
                         rpsGame.Play();
                         break;
 
                     case "3":
                         var numberGame = new NumberGuessingGame();
-                        numberGame.Init(new ConsoleInputProvider());
+                        numberGame.Init(new ConsoleInputProvider(), new ConsoleOutputProvider());
                         numberGame.Play();
                         break;
 
