@@ -30,6 +30,7 @@ namespace MiniGameTC {
                 Console.WriteLine("No test cases found!");
                 return;
             }
+
             var reporter = new Reporter();
             int successCount = 0;
             int failureCount = 0;

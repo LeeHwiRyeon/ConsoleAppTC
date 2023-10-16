@@ -15,6 +15,9 @@ namespace MiniGameTC {
             m_game = new NumberGuessingGame();
             m_inputProvider = new MockInputProvider();
             m_outputProvider = new MockOutputProvider();
+            m_outputProvider.OnWriteLineCalled += (msg) => {
+                Report.AppendHistory(msg);
+            };
             m_game.Init(m_inputProvider, m_outputProvider);
         }
 

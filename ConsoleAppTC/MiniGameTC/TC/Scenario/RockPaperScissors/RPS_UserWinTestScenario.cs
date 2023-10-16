@@ -29,6 +29,8 @@ namespace MiniGameTC {
             }
 
             Report.Status = "Success";
+            Report.AppendHistory("The scenario completed successfully.");
+
             return Report;
         }
     }

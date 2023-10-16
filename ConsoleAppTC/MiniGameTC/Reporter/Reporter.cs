@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MiniGameTC {
     internal class Reporter {
@@ -17,11 +18,26 @@ namespace MiniGameTC {
                 Console.WriteLine($"Status: {report.Status}");
                 Console.WriteLine($"Error Message: {report.ErrorMessage}");
                 Console.WriteLine("Details:");
-                Console.WriteLine(report.GetRecords());
+                Console.WriteLine(report.GetFullReport());
                 Console.WriteLine();
             }
         }
 
-        // ... (추후 추가될 다른 메서드들)
+        public string GenerateReport()
+        {
+            string currentDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string baseDirectory = "path_to_reports_directory";
+            if (!Directory.Exists(baseDirectory)) {
+                Directory.CreateDirectory(baseDirectory);
+            }
+            foreach (var report in reports) {
+                string successIndicator = report.Status == "Success" ? "O" : "X";
+                string fileName = $"Report_{report.Name}_{currentDateTime}_{successIndicator}.txt";
+                string fullPath = Path.Combine(baseDirectory, fileName);
+                File.WriteAllText(fullPath, report.GetFullReport());
+            }
+
+            return baseDirectory;
+        }
     }
 }

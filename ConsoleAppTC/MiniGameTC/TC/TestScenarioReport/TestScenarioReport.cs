@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Text;
+﻿using System.Text;
 
 namespace MiniGameTC {
     public class TestScenarioReport {
@@ -18,7 +17,7 @@ namespace MiniGameTC {
             m_history.AppendLine(message);
         }
 
-        public string GetRecords()
+        public string GetFullReport()
         {
             return m_history.ToString();
         }
