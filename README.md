@@ -15,10 +15,11 @@
 - 시나리오를 정의할 때 `ITestScenario` 인터페이스를 구현합니다. 이 인터페이스는 테스트 시나리오의 실행과 관련된 메서드들을 포함합니다.
 
 ### 2. 테스트 시나리오 실행하기
-- 메인 애플리케이션에서 `ConsoleAppTester` 클래스의 인스턴스를 생성합니다.
+- 메인 애플리케이션에서 `TestScenarioRunner` 클래스의 인스턴스를 생성합니다.
   ```csharp
-  var tester = new ConsoleAppTester();
-  tester.RunAllTests();
+  var tcRunner = new TestScenarioRunner();
+  tcRunner.Init();
+  tcRunner.RunAllTests();
   ```
 ### 3. 테스트 결과 확인하기
 - 테스트가 완료되면, **Reporter** 클래스를 사용하여 결과를 확인합니다.
