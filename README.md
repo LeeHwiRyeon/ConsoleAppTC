@@ -37,6 +37,20 @@
   var git = new GitCommand();
   git.CommitAndPush(reportPath, "Add new test report");
   ```
+### 5. Slack 알림 사용법
+
+`SlackNotifier` 클래스를 사용하여 특정 이벤트나 테스트 결과를 Slack 채널에 알림을 보낼 수 있습니다.
+
+#### 설정 방법
+1. Slack에서 [이 링크](https://api.slack.com/apps/A046YFXPBFX/incoming-webhooks?)를 참조하여 새로운 Incoming Webhook을 설정하세요.
+2. 생성된 Webhook URL을 `SlackNotifier.webhookUrl`에 할당하세요.
+
+#### 사용 방법
+- 특정 시점에서 Slack에 메시지를 보내려면 다음 코드를 사용하세요:
+  ```csharp
+  MiniGameTester.SlackNotifier.SendMessage("Your message here");
+  ```
+
 ## 개발자를 위한 참고 사항
 - 테스트 시나리오를 추가하려면 `ITestScenario` 인터페이스를 구현하세요.
 - 리포트의 형식이나 저장 경로와 같은 설정을 변경하려면 **Reporter** 클래스 내부의 관련 메서드나 변수를 수정하면 됩니다.
